@@ -18,9 +18,6 @@ var minTime = +$gameTime.getAttribute('min')
 
 $bestResult.textContent = bestCPS
 
-localStorage.setItem('h', 'ddd')
-
-
 $start.addEventListener('click', startGame)
 $game.addEventListener('click', handleBoxClick)
 $gameTime.addEventListener('input', setGameTime)
