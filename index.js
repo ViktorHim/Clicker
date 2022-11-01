@@ -4,13 +4,19 @@ var $time = document.querySelector('#time')
 var $gameTime = document.querySelector('#game-time')
 var $result = document.querySelector('#result')
 var $speed = document.querySelector('#speed')
+var $bestResult = document.querySelector('#best-result')
 var $timeHeader = document.querySelector('#time-header')
 var $resultHeader = document.querySelector('#result-header')
 
 var score = 0
+var bestCPS = localStorage.getItem('bestCPS')
+? +localStorage.getItem('bestCPS') 
+: 0 
 var isGameStarted
 var maxTime = +$gameTime.getAttribute('max')
 var minTime = +$gameTime.getAttribute('min')
+
+$bestResult.textContent = bestCPS
 
 
 $start.addEventListener('click', startGame)
@@ -49,8 +55,18 @@ function startGame(){
 }
 
 function setGameScore() {
+    var cps = (score / +$gameTime.value).toFixed(1)
+    if (cps > bestCPS) {
+        setBestGameScore(cps)
+    }
     $result.textContent = score.toString()
-    $speed.textContent = (score / +$gameTime.value).toFixed(1)
+    $speed.textContent = cps.toString()
+}
+
+function setBestGameScore (cps) {
+    bestCPS = cps
+    localStorage.setItem('bestCPS', bestCPS.toString())
+    $bestResult.textContent = bestCPS
 }
 
 function setGameTime() {
